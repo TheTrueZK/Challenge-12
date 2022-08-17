@@ -1,5 +1,7 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
+require('dotenv').config();
+
 
 let connection = mysql.createConnection({
     host: 'localhost',
