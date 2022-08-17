@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
+const consoleTable = require("console.table");
 require('dotenv').config();
 
 
@@ -65,3 +66,13 @@ function initialPrompt() {
         });
 }
 
+function viewEmployees() {
+    connection.query(
+//SELECT FROM query
+        function(err, result) {
+            if (err) throw err;
+            console.table(result);
+            initialPrompt();
+        }
+    )
+}
