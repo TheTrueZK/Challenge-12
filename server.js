@@ -76,3 +76,24 @@ function viewEmployees() {
         }
     )
 }
+
+function addEmployee() {
+    inquirer.prompt([
+        {
+            name: "firstname",
+            type: "input",
+            message: "What's the employee's First Name?"
+        },
+        {
+            name: "lastname",
+            type: "input",
+            message: "What's the employee's Last Name?"
+        },
+        {
+            name: "role",
+            type: "list",
+            message: "What's the employee's role?",
+            choices: //array of choices
+        }
+    ])
+}
