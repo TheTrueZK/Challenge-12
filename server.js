@@ -94,6 +94,12 @@ function addEmployee() {
             type: "list",
             message: "What's the employee's role?",
             choices: //array of choices
+        },
+        {
+            name: "manager",
+            type: "list",
+            message: "Who's the employee's manager?",
+            choices: //array of choices
         }
     ])
 }
