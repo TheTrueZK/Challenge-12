@@ -67,15 +67,12 @@ function initialPrompt() {
 }
 
 function viewEmployees() {
-    connection.query(
-//SELECT FROM query
-        function(err, result) {
-            if (err) throw err;
-            console.table(result);
-            initialPrompt();
-        }
-    )
-}
+    connection.query(`SELECT e.employee_id, e.first_name, e.last_name, role.title, department.department_name, role.salary, CONCAT(m.first_name, ' ', m.last_name) manager FROM employee m RIGHT JOIN employee e ON e.manager_id = m.employee_id JOIN role ON e.role_id = role.role_id JOIN department ON department.department_id = role.department_id ORDER BY e.employee_id ASC;`, (err, res) => {
+          if (err) throw err;
+          console.table('\n', res, '\n');
+          initialPrompt();  
+    })
+};
 
 function addEmployee() {
     inquirer.prompt([
@@ -93,13 +90,22 @@ function addEmployee() {
             name: "role",
             type: "list",
             message: "What's the employee's role?",
-            choices: //array of choices
+            choices: []
         },
         {
             name: "manager",
             type: "list",
             message: "Who's the employee's manager?",
-            choices: //array of choices
+            choices: []
         }
-    ])
+    ]).then((response) => {
+        connection.query(`INSERT INTO employee SET ?`,
+        {
+            first_name: response.firstname,
+            last_name: response.lastname,
+            role_id: response.role,
+            manager_id: response.manager,
+        })
+        initialPrompt();
+    })
 }
